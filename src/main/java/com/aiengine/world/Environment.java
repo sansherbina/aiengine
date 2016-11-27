@@ -3,7 +3,7 @@ package com.aiengine.world;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Environment {
+public class Environment implements WorldInterface{
     private int[] GAS_STATION_POSITIONS = new int[]{2, 5};
     private int ENVIRONMENT_LENGTH = 6;
     private int INITIAL_CAR_POSITION = 0;
@@ -20,7 +20,12 @@ public class Environment {
         recreateGasStation(-1);
     }
 
+    public double getContentment() {
+        return ((double)car.getFuelLevel())/Car.MAX_FUEL_VOLUME;
+    }
+
     public ActionResult doAction(Action action) {
+        car.descreaseFuel();
         boolean result;
         switch (action) {
             case MOVE_RIGHT:
@@ -39,6 +44,14 @@ public class Environment {
                 throw new IllegalArgumentException(String.format("Unsuported action %s", action));
         }
         return result?ActionResult.SUCCESSFUL:ActionResult.FAIL;
+    }
+
+    public int getCurrentPosition() {
+        return carPosition;
+    }
+
+    public int getPositionsQuantity() {
+        return length;
     }
 
     private boolean loadFuel() {

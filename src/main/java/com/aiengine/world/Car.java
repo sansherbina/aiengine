@@ -1,6 +1,7 @@
 package com.aiengine.world;
 
 public class Car {
+    public static final int MAX_FUEL_VOLUME = 50;
     public static final int FUEL_LOAD_SPEED = 2;
     private int fuelLevel;
 
@@ -15,6 +16,9 @@ public class Car {
 
     public void loadFuel(int loadedFuelVolume) {
         fuelLevel += loadedFuelVolume;
+        if (fuelLevel > MAX_FUEL_VOLUME) {
+            fuelLevel = MAX_FUEL_VOLUME;
+        }
     }
 
     public int getFuelLevel() {
